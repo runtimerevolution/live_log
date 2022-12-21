@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+:root {
+  --white: white;
+  --error: #f83744;
+  --info: #89a0af;
+  --warn: #FED049;
+  --exception: #d00000;
+  --text: #565b5e;
+  --background: #eeeeee;
+}
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  background-color: var(--background);
+  color: var(--text);
+  padding: 25px;
+}
+
+table {
+  display: block;
+  text-align: left;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr {
+  border-collapse: collapse;
+  vertical-align: top;
+}
+
+th {
+  padding: 15px 5px
+}
+
+td {
+  padding: 5px;
+  min-width: 100px;
+}
+
+.message {
+  width: 100%;
+}
+
+#live_log_id {
+  border-top: var(--background) 1px solid;
+}
+
+#live_log_id::before
+{
+    content: '';
+    display: block;
+    height: 20px;
+}
+.card {
+  display: flex;
+  padding: 15px;
+  background: var(--white);
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px -5px rgb(0 0 0 / 35%);
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.error, .warn, .info, .exception {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  padding: 3px 5px;
+  width: 70px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.error {
+  background-color: var(--error);
+}
+
+.info {
+  background-color: var(--info);
+}
+
+.warn {
+  background-color: var(--warn);
+}
+
+.exception {
+  background-color: var(--exception);
+}
+
+.text-error {
+  color: var(--error);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+.text-warn {
+  color: var(--warn);
+}
+
+.text-exception {
+  color: var(--exception);
+}
+
+.bg-exception {
+  background-color: #d0010012;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.element:hover {
+  background-color: var(--background);
+  cursor: pointer;
+}
+
+.element:hover .hide {
+  opacity: 1;
+}
+
+.content {
+  border-top: var(--background) 1px solid;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -50px;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

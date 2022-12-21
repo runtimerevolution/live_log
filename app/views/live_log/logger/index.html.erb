@@ -1,0 +1,27 @@
+<h1>Live Log</h1>
+<div class="card">
+  <table cellspacing="0" cellpadding="0">
+    <tr>
+      <th>Level</th>
+      <th>Time</th>
+      <th>Message</th>
+    </tr>
+
+    <tbody id="live_log_id"></tbody>
+  </table>
+</div>
+
+<script>
+  const copyElement = (e) => {
+    navigator.clipboard.writeText(e.querySelector(".message").textContent);
+    e.querySelector(".message i").classList.remove("bi-clipboard")
+    e.querySelector(".message i").classList.add("bi-clipboard-check")
+  }
+
+  const resetState = (e) => {
+    e.querySelector(".message i").classList.remove("bi-clipboard-check")
+    e.querySelector(".message i").classList.add("bi-clipboard")
+  }
+</script>
+
+<%= javascript_pack_tag 'live_log_channel' %>
