@@ -21,12 +21,6 @@ Or install it yourself as:
 $ gem install live_log
 ```
 
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
 ## Getting started
 After the installation we need to setup the action cable to the project.
 
