@@ -5,9 +5,6 @@ require 'redis'
 module LiveLog
   # Logger contains the methods to broadcast a message
   class Logger
-    @ttl = 1.minute
-    @limit = 5
-
     class << self
       def error(payload)
         broadcast_message(format_payload('error', payload))
@@ -29,9 +26,9 @@ module LiveLog
 
       def redis_data
         redis = Redis.new
-        min_timestamp = to_ms(Time.now) - to_ms(@ttl)
+        min_timestamp = to_ms(Time.now) - to_ms(LiveLog.configuration.persist_time.minute)
         redis.call(['xtrim', LiveLog.configuration.channel, 'minid', '=', "#{min_timestamp}-0"])
-        redis.xrevrange(LiveLog.configuration.channel, '+', '-', count: @limit)
+        redis.xrevrange(LiveLog.configuration.channel, '+', '-', count: LiveLog.configuration.persist_limit)
       end
 
       private
@@ -52,10 +49,11 @@ module LiveLog
       def redis_persist(payload)
         redis = Redis.new
         timestamp_ms = to_ms(Time.now)
-        min_timestamp = timestamp_ms - to_ms(@ttl)
-        redis.xadd(LiveLog.configuration.channel, *payload, id: "#{timestamp_ms}-0")
-        redis.call(['xtrim', LiveLog.configuration.channel, 'minid', '=', "#{min_timestamp}-0"])
-        redis.xrevrange(LiveLog.configuration.channel, '+', '-', count: @limit)
+        live_log = LiveLog.configuration
+        min_timestamp = timestamp_ms - to_ms(live_log.persist_time.minute)
+        redis.xadd(live_log.channel, *payload, id: "#{timestamp_ms}-0")
+        redis.call(['xtrim', live_log.channel, 'minid', '=', "#{min_timestamp}-0"])
+        redis.xrevrange(live_log.channel, '+', '-', count: live_log.persist_limit)
       end
     end
   end
