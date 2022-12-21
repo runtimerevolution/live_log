@@ -28,13 +28,16 @@ module LiveLog
       end
 
       def redis_data
-        redis = Redis.new
         min_timestamp = to_ms(Time.now) - to_ms(@ttl)
         redis.call(['xtrim', LiveLog.configuration.channel, 'minid', '=', "#{min_timestamp}-0"])
         redis.xrevrange(LiveLog.configuration.channel, '+', '-', count: @limit)
       end
 
       private
+
+      def redis
+        @redis ||= Redis.new
+      end
 
       def format_payload(type, payload)
         { type: type, time: to_ms(Time.now), message: payload.to_json, groupId: '0' }
@@ -50,7 +53,6 @@ module LiveLog
       end
 
       def redis_persist(payload)
-        redis = Redis.new
         timestamp_ms = to_ms(Time.now)
         min_timestamp = timestamp_ms - to_ms(@ttl)
         redis.xadd(LiveLog.configuration.channel, *payload, id: "#{timestamp_ms}-0")
