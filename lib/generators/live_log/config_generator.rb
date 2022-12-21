@@ -16,7 +16,7 @@ module LiveLog
       end
 
       def add_mount_application
-        route "mount LiveLog::Engine, at: '/live_log'"
+        route "mount LiveLog::Engine, at: ''"
       end
     end
   end

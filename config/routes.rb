@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 LiveLog::Engine.routes.draw do
-  root to: 'logger#index'
-  get '/redis_data', to: 'logger#redis_data'
+  scope :rrtools do
+    scope path: 'live-log' do
+      root 'logger#index'
+      get '/redis-data', to: 'logger#redis_data'
+    end
+  end
 end
