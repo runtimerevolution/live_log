@@ -44,6 +44,8 @@ You can also define configurations by creating a file `live_log.rb` on `config/i
 ```ruby
 LiveLog.configuration.channel = 'my_channel_name'
 LiveLog.configuration.persist = true
+LiveLog.configuration.persist_limit = 10
+LiveLog.configuration.persist_time = 5
 LiveLog.configuration.all_exceptions = true
 ```
 
@@ -53,6 +55,8 @@ or
 LiveLog.configure do |config|
     config.channel = 'my_channel_name'
     config.persist = true
+    config.persist_limit = 10
+    config.persist_time = 5
     config.all_exceptions = true
 end
 ```
@@ -61,6 +65,8 @@ end
 |---|---|---|---|
 |channel|string|"live_log_channel"|It setups the name of the streaming room|
 |persist|boolean|false|It enables the persistance of data|
+|persist_limit|integer|5|Amount of individual data that will persist|
+|persist_time|integer|1|Amount of time in minutes that the data will persist|
 |all_exceptions|boolean|false|It enables to send all exceptions|
 
 ## Contributing
