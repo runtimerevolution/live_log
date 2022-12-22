@@ -68,6 +68,7 @@ end
 |persist_limit|integer|5|Amount of individual data that will persist|
 |persist_time|integer|1|Amount of time in minutes that the data will persist|
 |all_exceptions|boolean|false|It enables to send all exceptions|
+|redis|hash|{}|It adds custom configs to redis|
 
 ## Contributing
 Contribution directions go here.

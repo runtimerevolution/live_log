@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'redis'
-
 module LiveLog
   # Logger contains the methods to broadcast a message
   class Logger
@@ -25,13 +23,14 @@ module LiveLog
       end
 
       def redis_data
-        redis = Redis.new
-        min_timestamp = to_ms(Time.now) - to_ms(LiveLog.configuration.persist_time.minute)
-        redis.call(['xtrim', LiveLog.configuration.channel, 'minid', '=', "#{min_timestamp}-0"])
-        redis.xrevrange(LiveLog.configuration.channel, '+', '-', count: LiveLog.configuration.persist_limit)
+        update_redis_data
       end
 
       private
+
+      def redis
+        LiveLog.configuration.redis
+      end
 
       def format_payload(type, payload)
         { type: type, time: to_ms(Time.now), message: payload.to_json, groupId: '0' }
@@ -46,14 +45,18 @@ module LiveLog
         (time.to_f * 1000.0).to_i
       end
 
+      def min_timestamp
+        to_ms(Time.now) - to_ms(LiveLog.configuration.persist_time.minute)
+      end
+
       def redis_persist(payload)
-        redis = Redis.new
-        timestamp_ms = to_ms(Time.now)
-        live_log = LiveLog.configuration
-        min_timestamp = timestamp_ms - to_ms(live_log.persist_time.minute)
-        redis.xadd(live_log.channel, *payload, id: "#{timestamp_ms}-0")
-        redis.call(['xtrim', live_log.channel, 'minid', '=', "#{min_timestamp}-0"])
-        redis.xrevrange(live_log.channel, '+', '-', count: live_log.persist_limit)
+        redis.xadd(LiveLog.configuration.channel, *payload, id: "#{to_ms(Time.now)}-0")
+        update_redis_data
+      end
+
+      def update_redis_data
+        redis.call(['xtrim', LiveLog.configuration.channel, 'minid', '=', "#{min_timestamp}-0"])
+        redis.xrevrange(LiveLog.configuration.channel, '+', '-', count: LiveLog.configuration.persist_limit)
       end
     end
   end
