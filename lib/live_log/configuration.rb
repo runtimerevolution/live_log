@@ -18,7 +18,7 @@ module LiveLog
     end
 
     def redis=(redis)
-      @redis = Redis.new(redis)
+      @redis = redis.instance_of?(Redis) ? redis : Redis.new(redis)
     end
   end
 end
