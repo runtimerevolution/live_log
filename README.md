@@ -26,7 +26,7 @@ After the installation we need to setup your project.
 
 If you want the live_log views you need to add this mount into your `routes.rb`
 
-```bash
+```ruby
 mount LiveLog::Engine, at: ''
 ```
 
