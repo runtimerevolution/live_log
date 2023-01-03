@@ -27,7 +27,7 @@ After the installation we need to setup the action cable to the project.
 Run the following command:
 
 ```bash
-bin/rails g live_log:config:config
+bin/rails g live_log:config
 ```
 
 This command will add 2 new files `live_log_channel.rb` and `live_log_channel.js` these files will be responsible to adding the correct configuration.
