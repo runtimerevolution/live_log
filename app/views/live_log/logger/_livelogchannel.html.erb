@@ -1,5 +1,4 @@
-import { createConsumer } from "@rails/actioncable"
-
+<script>
 const consumer = createConsumer();
 
 const url = `${window.location.href}/redis-data`;
@@ -10,6 +9,17 @@ const Icons = {
   warn: 'bi bi-exclamation-triangle-fill',
   info: 'bi bi-info-circle-fill',
   exception: 'bi bi-x-circle-fill'
+}
+
+const copyElement = (e) => {
+  navigator.clipboard.writeText(e.querySelector(".message").textContent);
+  e.querySelector(".message i").classList.remove("bi-clipboard")
+  e.querySelector(".message i").classList.add("bi-clipboard-check")
+}
+
+const resetState = (e) => {
+  e.querySelector(".message i").classList.remove("bi-clipboard-check")
+  e.querySelector(".message i").classList.add("bi-clipboard")
 }
 
 const htmlData = (data) => {
@@ -42,3 +52,4 @@ consumer.subscriptions.create("LiveLog::LiveLogChannel", {
     liveLogDiv.insertAdjacentHTML("afterbegin", htmlData(data))
   }
 });
+</script>

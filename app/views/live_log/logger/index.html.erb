@@ -11,17 +11,5 @@
   </table>
 </div>
 
-<script>
-  const copyElement = (e) => {
-    navigator.clipboard.writeText(e.querySelector(".message").textContent);
-    e.querySelector(".message i").classList.remove("bi-clipboard")
-    e.querySelector(".message i").classList.add("bi-clipboard-check")
-  }
-
-  const resetState = (e) => {
-    e.querySelector(".message i").classList.remove("bi-clipboard-check")
-    e.querySelector(".message i").classList.add("bi-clipboard")
-  }
-</script>
-
-<%= javascript_pack_tag 'live_log_channel' %>
+<%= render "actioncable" %>
+<%= render "livelogchannel" %>
