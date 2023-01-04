@@ -22,17 +22,17 @@ $ gem install live_log
 ```
 
 ## Getting started
-After the installation we need to setup the action cable to the project.
+After the installation we need to setup your project.
 
-Run the following command:
+If you want the live_log views you need to add this mount into your `routes.rb`
 
-```bash
-bin/rails g live_log:config:config
+```ruby
+mount LiveLog::Engine, at: ''
 ```
 
-This command will add 2 new files `live_log_channel.rb` and `live_log_channel.js` these files will be responsible to adding the correct configuration.
+This way it will be possible to access on the `/rrtools/live-log`.
 
-Now paste the following code on your `application_controller.rb` to be able to use the `all_exceptions` feature:
+To use `all_exceptions` feature we need to add the following code on your `application_controller.rb`.
 
 ```ruby
 rescue_from Exception, with: ->(e) { LiveLog::Logger.handle_exception(e) }
