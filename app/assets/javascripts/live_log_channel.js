@@ -1,4 +1,5 @@
-<script>
+//= require actioncable
+const {createConsumer} = ActionCable;
 const consumer = createConsumer();
 
 const url = `${window.location.href}/redis-data`;
@@ -52,4 +53,3 @@ consumer.subscriptions.create("LiveLog::LiveLogChannel", {
     liveLogDiv.insertAdjacentHTML("afterbegin", htmlData(data))
   }
 });
-</script>
