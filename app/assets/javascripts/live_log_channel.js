@@ -42,12 +42,15 @@ const htmlData = (data) => {
 consumer.subscriptions.create("LiveLog::LiveLogChannel", {
   async connected() {
     const data = await (await fetch(url)).json()
+    liveLogDiv.innerHTML = ''
 
     data.forEach(elem => {
       liveLogDiv.insertAdjacentHTML("beforeend", htmlData(elem))
     });
   },
-  disconnected() {},
+  disconnected() {
+    liveLogDiv.innerHTML = ''
+  },
   received(receivedData) {
     const [data] = receivedData;
     liveLogDiv.insertAdjacentHTML("afterbegin", htmlData(data))
