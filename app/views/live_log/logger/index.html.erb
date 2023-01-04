@@ -11,5 +11,4 @@
   </table>
 </div>
 
-<%= javascript_include_tag 'live_log_channel_old.js' if Rails.version.to_i < 7 %>
-<%= javascript_include_tag 'live_log_channel.js' if Rails.version.to_i >= 7 %>
+<%= javascript_include_tag Rails.version.to_i < 7 ? 'versions/old.js' : 'versions/new.js' %>

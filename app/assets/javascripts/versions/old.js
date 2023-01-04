@@ -1,2 +1,2 @@
 //= require action_cable
-//= require ./channel
+//= require ../channel
