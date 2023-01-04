@@ -13,8 +13,6 @@ jobs:
         options: --entrypoint redis-server
     env:
       RAILS_ENV: test
-      GEMFILE_RUBY_VERSION: 2.7.2
-
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
@@ -22,7 +20,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 3.0.4
           bundler: "Gemfile.lock"
           bundler-cache: true
       - name: Run tests
