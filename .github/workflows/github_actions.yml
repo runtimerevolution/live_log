@@ -1,4 +1,4 @@
-name: RSpec
+name: RSpec Coverage
 
 on: [push]
 
@@ -13,7 +13,7 @@ jobs:
         options: --entrypoint redis-server
     env:
       RAILS_ENV: test
-      GEMFILE_RUBY_VERSION: 3.0.4
+      GEMFILE_RUBY_VERSION: 2.7.2
 
     steps:
       - name: Checkout branch
@@ -22,6 +22,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: 2.7
           bundler: "Gemfile.lock"
           bundler-cache: true
       - name: Run tests
