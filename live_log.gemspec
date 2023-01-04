@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mock_redis'
   spec.add_development_dependency 'rails', '~> 6.1.7'
   spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'timecop'
 
   spec.add_dependency 'redis'

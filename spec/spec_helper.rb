@@ -15,6 +15,9 @@
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'byebug'
 require 'timecop'
+require 'simplecov'
+
+SimpleCov.start
 # require 'mock_redis'
 
 RSpec.configure do |config|
