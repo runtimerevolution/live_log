@@ -1,13 +1,10 @@
-name: Main
+name: RSpec
 
 on: [push]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    # If you need DB like PostgreSQL, Redis then define service below.
-    # https://github.com/actions/example-services/tree/master/.github/workflows
     services:
       redis:
         image: redis
@@ -19,12 +16,13 @@ jobs:
       GEMFILE_RUBY_VERSION: 3.0.4
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout branch
+        uses: actions/checkout@v2
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.4
+          bundler: "Gemfile.lock"
           bundler-cache: true
       - name: Run tests
         run: |
