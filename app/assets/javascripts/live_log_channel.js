@@ -1,6 +1,6 @@
-//= require actioncable
-const {createConsumer} = ActionCable;
-const consumer = createConsumer();
+//= require action_cable
+
+const consumer = ActionCable.createConsumer();
 
 const url = `${window.location.href}/redis-data`;
 const liveLogDiv = document.getElementById("live_log_id")
