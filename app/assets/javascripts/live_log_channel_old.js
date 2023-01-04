@@ -1,4 +1,4 @@
-//= require actioncable
+//= require action_cable
 
 const consumer = ActionCable.createConsumer();
 
