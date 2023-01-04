@@ -4,12 +4,12 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 RSpec.describe 'Loggers', type: :request do
-  # describe 'GET /index' do
-  #   it 'renders the index template' do
-  #     get '/live_log/rrtools/live-log'
-  #     expect(response.body).to include('live_log_id')
-  #   end
-  # end
+  describe 'GET /index' do
+    it 'renders the index template' do
+      get '/live_log/rrtools/live-log'
+      expect(response.body).to include('live_log_id')
+    end
+  end
 
   describe 'GET /redis_data' do
     before(:all) do
