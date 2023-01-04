@@ -1,8 +1,5 @@
 # LiveLog
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+LiveLog provides an user interface to show logs in realtime for production.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -21,16 +18,18 @@ Or install it yourself as:
 $ gem install live_log
 ```
 
-## Getting started
-After the installation we need to setup your project.
+## Usage
 
-If you want the live_log views you need to add this mount into your `routes.rb`
+### Configuration
+#### Views
+To use `live_log` views you need to add this mount into your `routes.rb`
 
 ```ruby
 mount LiveLog::Engine, at: ''
 ```
+It will be accessible on the browser at `/rrtools/live-log`.
 
-This way it will be possible to access on the `/rrtools/live-log`.
+#### All exceptions
 
 To use `all_exceptions` feature we need to add the following code on your `application_controller.rb`.
 
@@ -38,8 +37,11 @@ To use `all_exceptions` feature we need to add the following code on your `appli
 rescue_from Exception, with: ->(e) { LiveLog::Logger.handle_exception(e) }
 ```
 
-#### Gem configuration initializers
-You can also define configurations by creating a file `live_log.rb` on `config/initializers` and use it like the following:
+It will catch all the exception from your controllers and log them on `/rrtools/live-log`
+
+This feature requires `all_exceptions` enable on the [initializer](#initializers).
+#### Initializers
+You can define configurations by creating a file `live_log.rb` on `config/initializers` and use it like the following:
 
 ```ruby
 LiveLog.configuration.channel = 'my_channel_name'
@@ -49,7 +51,7 @@ LiveLog.configuration.persist_time = 5
 LiveLog.configuration.all_exceptions = true
 ```
 
-or
+**or**
 
 ```ruby
 LiveLog.configure do |config|
@@ -61,6 +63,8 @@ LiveLog.configure do |config|
 end
 ```
 
+##### Types
+
 | Name  |  Type | Default  | Description  |
 |---|---|---|---|
 |channel|string|"live_log_channel"|It setups the name of the streaming room|
@@ -70,8 +74,26 @@ end
 |all_exceptions|boolean|false|It enables to send all exceptions|
 |redis|hash|{}|It adds custom configs to redis|
 
+### Implementation
+
+To use this gem you just need to call the logger, for instance:
+
+```ruby
+LiveLog::Logger.info "Some message"
+```
+
+This will send the message to the view on `/rrtools/live-log`.
+
+You have these type of messages for visual purposes on the view, they are essentially the same.
+
+```ruby
+LiveLog::Logger.info
+LiveLog::Logger.warn
+LiveLog::Logger.error
+```
+
 ## Contributing
-Contribution directions go here.
+Bug reports and pull requests are welcome on GitHub at https://github.com/runtimerevolution/live_log.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
