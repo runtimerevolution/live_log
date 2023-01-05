@@ -15,6 +15,7 @@ module LiveLog
                  [:persist_time, Integer]
 
     def initialize
+      super
       @channel = 'live_log_channel'
       @persist = false
       @persist_limit = 5

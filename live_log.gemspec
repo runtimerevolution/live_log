@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Runtime Revolution']
   spec.email       = ['info@runtime-revolution.com']
   spec.homepage    = 'http://www.runtime-revolution.com/'
-  spec.summary     = 'Summary of LiveLog.'
-  spec.description = 'Description of LiveLog.'
+  spec.summary     = 'LiveLog provides an user interface to show logs in realtime for production.'
+  spec.description = 'LiveLog provides an user interface to show logs in realtime for production.'
   spec.license     = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
