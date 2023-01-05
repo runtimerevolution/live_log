@@ -3,11 +3,14 @@
 module LiveLog
   class Engine < ::Rails::Engine
     isolate_namespace LiveLog
-    config.assets.precompile << 'live_log/application.css'
-    config.assets.precompile << (Rails.version.to_i < 7 ? 'versions/old.js' : 'versions/new.js')
 
     config.generators do |g|
       g.test_framework :rspec
+    end
+
+    initializer :precompile do |app|
+      app.config.assets.precompile << 'live_log/application.css'
+      app.config.assets.precompile << LiveLog.file_version
     end
   end
 end
