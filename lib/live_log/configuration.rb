@@ -10,7 +10,7 @@ module LiveLog
       attributes.each do |attribute|
         name, type = attribute
         define_method(name) do
-          instance_variable_get(name)
+          instance_variable_get("@#{name}")
         end
 
         define_method("#{name}=") do |argument|
