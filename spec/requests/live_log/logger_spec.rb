@@ -6,7 +6,7 @@ require 'rails_helper'
 RSpec.describe 'Loggers', type: :request do
   describe 'GET /index' do
     it 'renders the index template' do
-      get '/live_log/rrtools/live-log'
+      get '/live_log'
       expect(response.body).to include('live_log_id')
     end
   end
@@ -20,14 +20,14 @@ RSpec.describe 'Loggers', type: :request do
     end
 
     it 'returns empty array' do
-      get '/live_log/rrtools/live-log/redis-data'
+      get '/live_log/redis-data'
       expect(JSON.parse(response.body)).to eq([])
     end
 
     it 'returns an array with object' do
       LiveLog::Logger.info('This is my info message')
 
-      get '/live_log/rrtools/live-log/redis-data'
+      get '/live_log/redis-data'
       json_response = JSON.parse(response.body)
       expect(json_response[0]['type']).to eq('info')
       expect(json_response[0]['message']).to eq('"This is my info message"')
@@ -41,7 +41,7 @@ RSpec.describe 'Loggers', type: :request do
         Timecop.travel(1.second)
       end
 
-      get '/live_log/rrtools/live-log/redis-data'
+      get '/live_log/redis-data'
       json_response = JSON.parse(response.body)
       expect(json_response.length).to eq(5)
     end
@@ -55,7 +55,7 @@ RSpec.describe 'Loggers', type: :request do
 
       Timecop.travel(4.minute)
 
-      get '/live_log/rrtools/live-log/redis-data'
+      get '/live_log/redis-data'
       json_response = JSON.parse(response.body)
       expect(json_response.length).to eq(1)
       expect(json_response[0]['type']).to eq('error')
