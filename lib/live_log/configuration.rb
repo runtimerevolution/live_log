@@ -15,7 +15,7 @@ module LiveLog
 
         define_method("#{name}=") do |argument|
           if type == Boolean
-            raise "#{name.to_s.capitalize} should be of type Boolean" unless argument.instance_of? TrueClass
+            raise "#{name.to_s.capitalize} should be of type Boolean" unless [true, false].include?(argument)
           else
             raise "#{name.to_s.capitalize} should be of type #{type.to_s}" unless argument.instance_of? type
           end
