@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'rack/builder'
 
 module LiveLog
+  # This class will handle the rack basic auth
   class Web
-
     class << self
       def call(env)
         @app ||= new
         @app.call(env)
       end
-  
+
       def middlewares
         @middlewares ||= []
       end
-  
+
       def use(*args, &block)
         middlewares << [args, block]
       end
