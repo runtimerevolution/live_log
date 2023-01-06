@@ -28,8 +28,9 @@ To use `live_log` views you need to add this mount into your `routes.rb`
 mount LiveLog::Web, at: 'rrtools/live-log'
 ```
 
-It will be accessible on the browser at `/rrtools/live-log`.
+It will be accessible on the browser at `/rrtools/live-log` with or without middlewares.
 
+#### Middleware
 ##### Basic Auth
 
 Enabling basic auth requires adding the middleware with recommended environment variables
