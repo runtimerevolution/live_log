@@ -4,6 +4,7 @@ require 'live_log/version'
 require 'live_log/engine'
 require 'live_log/configuration'
 require 'live_log/logger'
+require 'live_log/web'
 
 module LiveLog
   class << self
