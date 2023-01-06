@@ -14,6 +14,7 @@ RSpec.describe 'Loggers', type: :request do
   describe 'GET /redis_data' do
     before(:all) do
       LiveLog.configuration.persist = true
+      LiveLog.configuration.redis = Redis.new
     end
     before(:each) do
       LiveLog.configuration.redis.flushAll
