@@ -25,9 +25,22 @@ $ gem install live_log
 To use `live_log` views you need to add this mount into your `routes.rb`
 
 ```ruby
-mount LiveLog::Engine, at: 'rrtools/live-log'
+mount LiveLog::Web, at: 'rrtools/live-log'
 ```
+
 It will be accessible on the browser at `/rrtools/live-log`.
+
+##### Basic Auth
+
+Enabling basic auth requires adding the middleware with recommended environment variables
+
+```ruby
+LiveLog::Web.use Rack::Auth::Basic do |username, password|
+    ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV['LIVELOG_USERNAME'])) &
+        ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV['LIVELOG_PASSWORD']))
+end if Rails.env.production?
+mount LiveLog::Web, at: 'rrtools/live-log'
+```
 
 #### All exceptions
 
