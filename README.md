@@ -30,7 +30,10 @@ mount LiveLog::Web, at: 'rrtools/live-log'
 
 It will be accessible on the browser at `/rrtools/live-log` with or without middlewares.
 
+Pay attention that is good pratice to protect this route on production because it could have confidential metadata. We also support [basic auth](#basic-auth) that you can use to protect it.
+
 #### Middleware
+All middlewares are optional
 ##### Basic Auth
 
 Enabling basic auth requires adding the middleware with recommended environment variables
