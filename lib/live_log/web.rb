@@ -37,8 +37,9 @@ module LiveLog
     private
 
     def build
+      m = middlewares
       ::Rack::Builder.new do
-        (@middlewares || []).each { |middleware, block| use(*middleware, &block) }
+        m.each { |middleware, block| use(*middleware, &block) }
         run LiveLog::Engine
       end
     end
