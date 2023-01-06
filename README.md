@@ -25,7 +25,7 @@ $ gem install live_log
 To use `live_log` views you need to add this mount into your `routes.rb`
 
 ```ruby
-mount LiveLog::Web, at: 'rrtools/live-log'
+mount LiveLog::Web, at: 'rrtools/live-log', defaults: { group: 'RRTools' }
 ```
 
 It will be accessible on the browser at `/rrtools/live-log` with or without middlewares.

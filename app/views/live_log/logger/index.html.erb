@@ -1,14 +1,16 @@
-<h1>Live Log</h1>
-<div class="card">
-  <table cellspacing="0" cellpadding="0">
-    <tr>
-      <th>Level</th>
-      <th>Time</th>
-      <th>Message</th>
-    </tr>
-
-    <tbody id="live_log_id"></tbody>
-  </table>
+<div class="flex-grid live-log">
+  <div>
+    <h2><strong>LIVE LOG</strong></h2>
+    <div class="flex-row-container header" >
+      <div class="flex-row-item header-border short-description"><strong>Level</strong></div>
+      <div class="flex-row-item header-border short-description"><strong>Time</strong></div>
+      <div class="flex-row-item header-border description"><strong>Message</strong></div>      
+    </div> 
+    <div class="flex-row-container" id="live_log_id">      
+    </div> 
+    <div >      
+    </div>       
+  </div>
 </div>
 
 <%= javascript_include_tag LiveLog.file_version %>

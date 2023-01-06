@@ -5,12 +5,31 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag if Rails.version.to_i > 5 %>
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/runtimerevolution/rrtools/dist/assets/styleshhets/rrtools@1.0.0.min.css">
   <%= stylesheet_link_tag "live_log/application", media: "all" %>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  
 </head>
 <body>
+<div class="wrapper">
+  <% if LiveLog.configuration.rrtools_grouped_gems.size.positive? %>
+    <nav>
+      <header>      
+        RRTools      
+      </header>
+      <ul>
+        <li><span>Tools</span></li>
+        <% LiveLog.configuration.rrtools_grouped_gems.each do |menu| %>
+          <li class="active"><a href='<%= menu[:path] %>'><%= menu[:name].humanize %></a></li>
+        <% end %>
+      </ul>
+    </nav>
+  <% end %>
 
-<%= yield %>
+  <main>
+    <%= yield %>
+  </main>
+
+</div>
 
 </body>
 </html>

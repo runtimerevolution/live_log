@@ -23,17 +23,10 @@ const resetState = (e) => {
 
 const htmlData = (data) => {
   const date = new Date(parseInt(data.time));
-  return `
-    <tr onclick="copyElement(this)" onmouseleave="resetState(this)" class="element bg-${data.type}">
-      <td>
-        <div class="tooltip ${data.type}">
-          <i class="${Icons[data.type]}"></i>
-          <span class="tooltiptext">${data.type.charAt(0).toUpperCase() + data.type.slice(1)}</span>
-        </div>
-      </td>
-      <td class="text-${data.type}">${date.toLocaleTimeString('sv')}</td>
-      <td class="message">${data.message} <i class="bi bi-clipboard hide"></i></td>
-    </tr>
+  return `      
+      <div class="flex-row-item short-description color-${data.type}"><strong>${data.type}</strong></div>
+      <div class="flex-row-item short-description color-secondary"><strong>${date}</strong></div>
+      <div class="flex-row-item description color-dark"><strong>${data.message}</strong></div>          
   `
 }
 
@@ -54,3 +47,15 @@ consumer.subscriptions.create("LiveLog::LiveLogChannel", {
     liveLogDiv.insertAdjacentHTML("afterbegin", htmlData(data))
   }
 });
+
+
+{/* <tr onclick="copyElement(this)" onmouseleave="resetState(this)" class="element bg-${data.type}">
+      
+<div class="flex-row-item ${data.type}">
+  <i class="${Icons[data.type]}"></i>
+  <span class="tooltiptext">${data.type.charAt(0).toUpperCase() + data.type.slice(1)}</span>
+</div>
+
+<td class="flex-row-itemtext-${data.type}">${date.toLocaleTimeString('sv')}</td>
+<td class="flex-row-item">${data.message} <i class="bi bi-clipboard hide"></i></td>
+</tr> */}
