@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 module LiveLog
@@ -5,8 +7,9 @@ module LiveLog
     # Converts last broadcast message from json to object
     def last_broadcast
       msgs = broadcasts(LiveLog.configuration.channel)
-      return OpenStruct.new {} if msgs.empty?
-      last = JSON.parse(msgs.last, object_class: OpenStruct).last
+      return OpenStruct.new if msgs.empty? # rubocop:disable Style/OpenStructUse
+
+      last = JSON.parse(msgs.last, object_class: OpenStruct).last # rubocop:disable Style/OpenStructUse
       last.message = last.message.scan(/[a-zA-Z]+/).last
       last
     end
@@ -27,7 +30,6 @@ module LiveLog
     end
 
     shared_examples 'sends a broadcast' do |args|
-
       it "sends a broadcast #{args[:example] || args[:type]}" do
         assert_broadcasts LiveLog.configuration.channel, 0
         LiveLog::Logger.send((args[:method] || args[:type]).to_sym, args[:message])
@@ -42,8 +44,8 @@ module LiveLog
     include_examples 'sends a broadcast', type: 'error', message: 'Error'
     include_examples 'sends a broadcast', method: 'handle_exception', type: nil, message: nil, count: 0
     context 'with config' do
-	    before do; LiveLog.configuration.all_exceptions = true; end
-	    include_examples 'sends a broadcast', method: 'handle_exception', type: 'exception', message: 'Exception'
-	  end
+      before { LiveLog.configuration.all_exceptions = true }
+      include_examples 'sends a broadcast', method: 'handle_exception', type: 'exception', message: 'Exception'
+    end
   end
 end

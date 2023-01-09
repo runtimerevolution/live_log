@@ -4,24 +4,41 @@ module LiveLog
   # Logger contains the methods to broadcast a message
   class Logger
     class << self
+      # Method broadcasts an error message
+      #
+      # @param [any] payload will accept anything and broadcasts
       def error(payload)
         broadcast_message(format_payload('error', payload))
       end
 
+      # Method broadcasts an warn message
+      #
+      # @param [any] payload will accept anything and broadcasts
       def warn(payload)
         broadcast_message(format_payload('warn', payload))
       end
 
+      # Method broadcasts an info message
+      #
+      # @param [any] payload will accept anything and broadcasts
       def info(payload)
         broadcast_message(format_payload('info', payload))
       end
 
+      # Method broadcasts an exception message
+      #
+      # Only works with all_exceptions enabled
+      #
+      # @param [any] payload will accept anything and broadcasts
       def handle_exception(payload)
         return unless LiveLog.configuration.all_exceptions
 
         broadcast_message(format_payload('exception', payload))
       end
 
+      # Method will get available data from redis
+      #
+      # @return [Array] available data from redis
       def redis_data
         update_redis_data
       end

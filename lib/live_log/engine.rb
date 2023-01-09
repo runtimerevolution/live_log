@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module LiveLog
+  # This class starts the engine for the gem and all initializers
+  #
+  # When engine initializes it precompiles both css and js files
   class Engine < ::Rails::Engine
     isolate_namespace LiveLog
 
