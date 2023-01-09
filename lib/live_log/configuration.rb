@@ -22,15 +22,17 @@ module LiveLog
       @persist_time = 1
       @all_exceptions = false
       @redis = Redis.new
-      @rrtools_grouped_gems = Rails.application.routes.routes.select{ |prop| prop.defaults[:group] === 'RRTools' }.collect { |route| {name: route.name, path:  route.path.build_formatter.instance_variable_get("@parts").join('') } } || []
+      @rrtools_grouped_gems = Rails.application.routes.routes.select { |prop| prop.defaults[:group] == 'RRTools' }
+                                   .collect do |route|
+        {
+          name: route.name,
+          path: route.path.build_formatter.instance_variable_get('@parts').join
+        }
+      end || []
     end
 
     def redis=(redis)
       @redis = redis.instance_of?(Redis) ? redis : Redis.new(redis)
-    end
-
-    def rrtools_grouped_gems
-      @rrtools_grouped_gems
     end
   end
 end
