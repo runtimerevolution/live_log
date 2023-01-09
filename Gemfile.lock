@@ -183,9 +183,12 @@ GEM
     timeout (0.3.1)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    webrick (1.7.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yard (0.9.28)
+      webrick (~> 1.7.0)
     zeitwerk (2.6.6)
 
 PLATFORMS
@@ -202,6 +205,7 @@ DEPENDENCIES
   simplecov
   sqlite3
   timecop
+  yard
 
 BUNDLED WITH
    2.3.14
