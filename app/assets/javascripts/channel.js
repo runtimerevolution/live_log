@@ -4,36 +4,42 @@ const url = `${window.location.href}/redis-data`;
 const liveLogDiv = document.getElementById("live_log_id")
 
 const Icons = {
-  error: 'bi bi-exclamation-circle-fill',
-  warn: 'bi bi-exclamation-triangle-fill',
-  info: 'bi bi-info-circle-fill',
-  exception: 'bi bi-x-circle-fill'
+  error: 'fa-exclamation-circle',
+  warn: 'fa-exclamation-triangle',
+  info: 'fa-info-circle',
+  exception: 'fa-times-circle'
 }
 
 const copyElement = (e) => {
-  navigator.clipboard.writeText(e.querySelector(".message").textContent);
-  e.querySelector(".message i").classList.remove("bi-clipboard")
-  e.querySelector(".message i").classList.add("bi-clipboard-check")
+  navigator.clipboard.writeText(e.textContent.trim());
+  e.querySelector("i").classList.remove("fa-files-o")
+  e.querySelector("i").classList.add("fa-check")
 }
 
 const resetState = (e) => {
-  e.querySelector(".message i").classList.remove("bi-clipboard-check")
-  e.querySelector(".message i").classList.add("bi-clipboard")
+  e.querySelector("i").classList.remove("fa-check")
+  e.querySelector("i").classList.add("fa-files-o")
+  e.querySelector("i").style.opacity = "0"
+}
+
+const over = (e) => {
+  e.querySelector("i").style.opacity = "1"
 }
 
 const htmlData = (data) => {
   const date = new Date(parseInt(data.time));
   return `
-    <tr onclick="copyElement(this)" onmouseleave="resetState(this)" class="element bg-${data.type}">
-      <td>
-        <div class="tooltip ${data.type}">
-          <i class="${Icons[data.type]}"></i>
-          <span class="tooltiptext">${data.type.charAt(0).toUpperCase() + data.type.slice(1)}</span>
+      <div class="flex-row-item short-description color-${data.type} wrapper" style="gap: 20px">
+        <i class="fa ${Icons[data.type]} color-${data.type}" aria-hidden="true"></i>
+        <span><strong>${data.type}</strong></span>
+      </div>
+      <div class="flex-row-item short-description color-secondary"><strong>${date}</strong></div>
+      <div onclick="copyElement(this)" onmouseleave="resetState(this)" onmouseover="over(this)" class="flex-row-item description color-dark">
+        <div class="wrapper" style="gap: 10px; cursor: pointer">
+          <strong>${data.message}</strong>
+          <i class="fa fa-files-o" style="opacity:0" aria-hidden="true"></i>
         </div>
-      </td>
-      <td class="text-${data.type}">${date.toLocaleTimeString('sv')}</td>
-      <td class="message">${data.message} <i class="bi bi-clipboard hide"></i></td>
-    </tr>
+      </div>
   `
 }
 

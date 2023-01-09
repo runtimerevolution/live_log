@@ -6,7 +6,7 @@ require 'live_log/macro'
 module LiveLog
   # This class will initialize the configuration
   class Configuration < Macro
-    attr_reader :redis
+    attr_reader :redis, :rrtools_grouped_gems
 
     attr_checker [:channel, String],
                  [:persist, Boolean],
@@ -22,6 +22,13 @@ module LiveLog
       @persist_time = 1
       @all_exceptions = false
       @redis = Redis.new
+      @rrtools_grouped_gems = Rails.application.routes.routes.select { |prop| prop.defaults[:group] == 'RRTools' }
+                                   .collect do |route|
+        {
+          name: route.name,
+          path: route.path.build_formatter.instance_variable_get('@parts').join
+        }
+      end || []
     end
 
     def redis=(redis)
