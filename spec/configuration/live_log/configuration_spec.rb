@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe 'Configuration' do
   shared_examples 'configuration' do |name, type|
     types = {
@@ -13,7 +12,7 @@ RSpec.describe 'Configuration' do
 
     it "sets #{name} with the right type" do
       expect(LiveLog.configuration).to receive(:instance_variable_set)
-      expect(LiveLog.configuration).to receive(:check_boolean)
+      expect(LiveLog.configuration).to receive(:check_type)
       expect { LiveLog.configuration.send("#{name}=", types[type]) }.not_to raise_error
     end
 
@@ -51,4 +50,3 @@ RSpec.describe 'Configuration' do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
