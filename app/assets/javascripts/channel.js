@@ -28,7 +28,9 @@ const over = (e) => {
 
 const htmlData = (data) => {
   const date = new Date(parseInt(data.time));
+
   return `
+    <div class="flex-row-container ${data.type}">
       <div class="flex-row-item short-description color-${data.type} wrapper" style="gap: 20px">
         <i class="fa ${Icons[data.type]} color-${data.type}" aria-hidden="true"></i>
         <span><strong>${data.type}</strong></span>
@@ -36,11 +38,20 @@ const htmlData = (data) => {
       <div class="flex-row-item short-description color-secondary"><strong>${date}</strong></div>
       <div onclick="copyElement(this)" onmouseleave="resetState(this)" onmouseover="over(this)" class="flex-row-item description color-dark">
         <div class="wrapper" style="gap: 10px; cursor: pointer">
-          <strong>${data.message}</strong>
+          ${htmlMessage(data)}
           <i class="fa fa-files-o" style="opacity:0" aria-hidden="true"></i>
         </div>
       </div>
+    </div>
   `
+}
+
+const htmlMessage = ({message, type}) => {
+  const msg = JSON.parse(message)
+  if(type === "exception" && msg.exception) {
+    return `<div><span class="color-error">${msg.exception}: </span>${msg.exception_message}</div>`
+  }
+  return `<span>${message}</span>`
 }
 
 consumer.subscriptions.create("LiveLog::LiveLogChannel", {

@@ -33,7 +33,7 @@ module LiveLog
       def handle_exception(payload)
         return unless LiveLog.configuration.all_exceptions
 
-        broadcast_message(format_payload('exception', payload))
+        broadcast_message(format_payload('exception', format_exception(payload)))
       end
 
       # Method will get available data from redis
@@ -47,6 +47,10 @@ module LiveLog
 
       def redis
         LiveLog.configuration.redis
+      end
+
+      def format_exception(payload)
+        { exception: payload.class.name, exception_message: ''.html_safe + payload.message }
       end
 
       def format_payload(type, payload)
