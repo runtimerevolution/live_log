@@ -50,7 +50,7 @@ module LiveLog
       end
 
       def format_exception(payload)
-        { exception: payload.class.name, exception_message: ''.html_safe + payload.message }
+        { exception: payload.class.name, exception_message: ''.html_safe + payload.to_s }
       end
 
       def format_payload(type, payload)
