@@ -28,5 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'timecop'
   spec.add_development_dependency 'yard'
 
+  spec.add_dependency 'binding_of_caller'
   spec.add_dependency 'redis'
 end
