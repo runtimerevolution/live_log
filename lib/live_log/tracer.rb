@@ -12,16 +12,17 @@ module LiveLog
       @logger = logger
     end
 
-    %i[debug info warn error fatal unknown].each do |level|
-      define_method level do |*args, &block|
+    %i[debug info warn error fatal unknown].each do |lvl|
+      define_method lvl do |*args, &block|
         if logger
-          previous = Binding.new(binding.callers.second)
-          Logger.info([previous.class, previous.method]) if ['PageController'].include? previous.class
-          logger&.send(level, *args, &block)
+          call = caller.first
+          matcher = call.match(/(\/(?<file>[^\/]+)\.)[\S]*:(?<line>[\d]*):[\S\s]+((`(?<method>[^<][\S]+)')|`<class:(?<class>[\S]+)>|`<module:(?<module>[\S]+)>)/)
+          Logger.send(lvl, "#{matcher[:file]}::#{matcher[:method] || matcher[:class] || matcher[:module]}        #{args.first}") if call.include? 'page_controller'
+          logger&.send(lvl, *args, &block)
         end
       end
 
-      define_method "#{level}?" do
+      define_method "#{lvl}?" do
         true
       end
     end
