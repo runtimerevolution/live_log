@@ -1,8 +1,10 @@
 # frozen_string_literal: true
+
 require 'live_log/logger'
-require 'binding_of_caller'
+require 'live_log/binding'
 
 module LiveLog
+  # Tracer class
   class Tracer
     attr_accessor :formatter, :level, :logger
 
@@ -13,9 +15,8 @@ module LiveLog
     %i[debug info warn error fatal unknown].each do |level|
       define_method level do |*args, &block|
         if logger
-          caller_class = binding.callers.second.eval('self').class.to_s
-          caller_method = binding.callers.second.frame_description
-          Logger.info([caller_class, caller_method]) if ['PageController'].include? caller_class
+          previous = Binding.new(binding.callers.second)
+          Logger.info([previous.class, previous.method]) if ['PageController'].include? previous.class
           logger&.send(level, *args, &block)
         end
       end
