@@ -16,7 +16,6 @@
 require 'byebug'
 require 'timecop'
 require 'simplecov'
-require File.expand_path("../../lib/live_log/tracer", __FILE__)
 
 SimpleCov.start
 # require 'mock_redis'

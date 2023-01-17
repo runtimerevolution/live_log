@@ -1,4 +1,5 @@
 require_dependency 'live_log/application_controller'
+require 'live_log/tracer'
 
 module LiveLog
   class LoggerController < ApplicationController
