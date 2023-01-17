@@ -29,7 +29,10 @@ module LiveLog
       query_classes.each do |cls|
         # S-expression of standard rails logs
         pattern = s(:call, s(:const, :Rails), :logger)
+        # Loop methods if not empty
         (cls / matcher_method).each do |med|
+          # If S-expression matches standard rails logs, line and type call
+          # Return corresponding class
           med.deep_each do |s_exp|
             @classname = JSON.parse(cls.to_json).second if s_exp == pattern &&
                                                            s_exp.sexp_type == :call &&
