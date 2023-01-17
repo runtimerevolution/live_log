@@ -15,9 +15,8 @@ module LiveLog
     %i[debug info warn error fatal unknown].each do |lvl|
       define_method lvl do |*args, &block|
         if logger
-          call = caller.first
-          matcher = call.match(/(\/(?<file>[^\/]+)\.)[\S]*:(?<line>[\d]*):[\S\s]+((`(?<method>[^<][\S]+)')|`<class:(?<class>[\S]+)>|`<module:(?<module>[\S]+)>)/)
-          Logger.send(lvl, "#{matcher[:file]}::#{matcher[:method] || matcher[:class] || matcher[:module]}        #{args.first}") if call.include? 'page_controller'
+          binder = Binding.new(caller.first)
+          Logger.send(lvl, "Ola -- #{binder.classname}") if binder.classname == 'PageController'
           logger&.send(lvl, *args, &block)
         end
       end
