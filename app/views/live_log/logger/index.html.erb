@@ -1,6 +1,28 @@
 <div class="flex-grid live-log">
   <div>
     <h2><strong>LIVE LOG</strong></h2>
+    <div class="flex-row-container">
+      <div>
+        <% if LiveLog::Tracer.is_active %>
+          <%= button_to 'Stop', { action: 'tracer_active', active: false, method: :post }, form_class: "button_to stop" %>
+        <% else %>
+          <%= button_to 'Start', { action: 'tracer_active', active: true, method: :post } %>
+        <% end %>
+      </div>
+      <% if LiveLog::Tracer.is_active %>
+        <div class="dropdown">
+          <input type="text" placeholder="Search.." id="searchFile">
+          <div id="fileOptions" class="dropdown-content" tabindex="0">
+            <% @files_list.each do |file| %>
+              <%= button_to file, { action: 'tracer_files', file: file, method: :post } %>
+            <% end %>
+          </div>
+        </div>
+          <% @tracer_files.each_with_index do |f, i| %>
+            <%= button_to f, { action: 'remove_file', id: i, method: :post }, form_class: "fileList" %>
+          <% end %>
+      <% end %>
+    </div>
     <div class="flex-row-container header" >
       <div class="flex-row-item header-border short-description"><strong>Level</strong></div>
       <div class="flex-row-item header-border short-description"><strong>Time</strong></div>

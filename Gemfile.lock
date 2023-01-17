@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     live_log (1.0.0)
-      binding_of_caller
       redis
 
 GEM
@@ -67,15 +66,12 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    binding_of_caller (1.0.0)
-      debug_inspector (>= 0.0.1)
     builder (3.2.4)
     byebug (11.1.3)
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
     crass (1.0.6)
     date (3.3.3)
-    debug_inspector (1.1.0)
     diff-lcs (1.5.0)
     docile (1.4.0)
     erubi (1.12.0)
@@ -179,6 +175,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sqlite3 (1.5.4-arm64-darwin)
+    sqlite3 (1.5.4-x86_64-darwin)
     sqlite3 (1.5.4-x86_64-linux)
     thor (1.2.1)
     timecop (0.9.6)
@@ -210,4 +208,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   2.3.5
+   2.3.14
