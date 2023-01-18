@@ -22,13 +22,17 @@ module LiveLog
 
     # Sets files is_active value
     def tracer_files
+      return unless LiveLog::Tracer.is_active && params[:file]
+
       LiveLog::Tracer.files << params[:file]
       redirect_back fallback_location: root_path
     end
 
     # delete tracer files
     def remove_file
-      LiveLog::Tracer.files.delete_at(params[:id].to_i)
+      return unless LiveLog::Tracer.is_active && params[:id]
+
+      LiveLog::Tracer.files.delete_at(Integer(params[:id]))
       redirect_back fallback_location: root_path
     end
 
