@@ -40,7 +40,7 @@ module LiveLog
     private
 
     def check_level(lvl)
-      return 'handle_exception' if %i[debug fatal unknown].include? lvl
+      return 'handle_exception' if %i[debug fatal unknown].include? lvl.to_s
 
       lvl
     end
