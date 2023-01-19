@@ -45,14 +45,6 @@ module LiveLog
       @middlewares ||= self.class.middlewares
     end
 
-    # Method enables the insertion of new middlewares into instance
-    #
-    # @param [Array] args all middlewares
-    # @param [Block] block block of code
-    # def use(*args, &block)
-    #   middlewares << [args, block]
-    # end
-
     private
 
     def build
