@@ -63,5 +63,9 @@ RSpec.describe 'Configuration' do
     it 'not sets with wrong type' do
       expect { LiveLog.configuration.redis = 123 }.to raise_error NoMethodError
     end
+
+    it 'not sets with wrong type' do
+      expect(LiveLog.file_version(7)).to include('versions/7_up_v1')
+    end
   end
 end
