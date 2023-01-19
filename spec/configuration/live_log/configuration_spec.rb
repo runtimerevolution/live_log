@@ -16,6 +16,21 @@ RSpec.describe 'Configuration' do
       expect { LiveLog.configuration.send("#{name}=", types[type]) }.not_to raise_error
     end
 
+    it "sets #{name} with the right type with block" do
+      LiveLog.configure do |config|
+        expect { config.send("#{name}=", types[type]) }.not_to raise_error
+      end
+    end
+
+    it "not sets #{name} with the wrong type" do
+      types.delete(type)
+      types.each do |t|
+        LiveLog.configure do |config|
+          expect { config.send("#{name}=", t) }.to raise_error(RuntimeError, /#{type}/)
+        end
+      end
+    end
+
     it "not sets #{name} with the wrong type" do
       types.delete(type)
       types.each { |t| expect { LiveLog.configuration.send("#{name}=", t) }.to raise_error(RuntimeError, /#{type}/) }

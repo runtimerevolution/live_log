@@ -1,3 +1,4 @@
+require 'live_log/tracer'
 require "active_support/core_ext/integer/time"
 
 # The test environment is used exclusively to run your application's
@@ -56,4 +57,6 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  config.logger = LiveLog::Tracer.new(ActiveSupport::Logger.new("#{Rails.root}/log/test.log"))
 end

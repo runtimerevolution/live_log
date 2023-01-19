@@ -57,6 +57,16 @@ rescue_from Exception, with: ->(e) { LiveLog::Logger.handle_exception(e) }
 It will catch all the exception from your controllers and log them on `/rrtools/live-log`
 
 This feature requires `all_exceptions` enable on the [initializer](#initializers).
+
+#### Rails Logger
+
+LiveLog can catch all the logs from your rails application and filter it by files. To make it work just add the following on the `development.rb` or `production.rb` file:
+
+```ruby
+require "live_log/tracer"
+
+config.logger = LiveLog::Tracer.new(ActiveSupport::Logger.new($stdout))
+```
 #### Initializers
 You can define configurations by creating a file `live_log.rb` on `config/initializers` and use it like the following:
 
