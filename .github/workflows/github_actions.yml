@@ -28,7 +28,7 @@ jobs:
           bundle exec rspec
       - name: Adds coverage
         run: |
-          cat ~/live_log/coverage/.last_run.json
+          pwd
 
 
 
