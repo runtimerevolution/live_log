@@ -50,7 +50,6 @@ module LiveLog
     # @param [Array] args all middlewares
     # @param [Block] block block of code
     # def use(*args, &block)
-    #   debugger
     #   middlewares << [args, block]
     # end
 
