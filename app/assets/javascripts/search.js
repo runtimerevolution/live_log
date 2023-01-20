@@ -1,5 +1,21 @@
-const fileOptions = document.getElementById('fileOptions')
+const fileOptions = document.getElementById("fileOptions");
+const logLevelOptions = document.getElementById("logLevelOptions");
 const searchFile = document.getElementById("searchFile");
+const logLevel = document.getElementById("logLevel");
+
+if(logLevel && logLevelOptions) {  
+  logLevel.onclick = () => {
+    logLevelOptions.classList.add("show");
+    logLevel.classList.add("rotate");
+  }
+  
+  logLevel.onblur = (event) => {
+    if(event.relatedTarget == null) {
+      logLevelOptions.classList.remove("show");
+      logLevel.classList.remove("rotate");
+    }
+  }
+}
 
 if(searchFile) {
   searchFile.onclick = () => {

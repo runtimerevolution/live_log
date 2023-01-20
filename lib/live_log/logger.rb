@@ -3,6 +3,8 @@
 module LiveLog
   # Logger contains the methods to broadcast a message
   class Logger
+    attr_accessor :log_level
+
     class << self
       # Method broadcasts an error message
       #

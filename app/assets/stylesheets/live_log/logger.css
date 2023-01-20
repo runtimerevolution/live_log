@@ -7,6 +7,13 @@
   --grey: #dddddd;
   --soft-grey: #f5f5f5;
   --text: #777777;
+  /* Log Levels */
+  --debug: #737373;
+  --info: #7F7FFF;
+  --warn: #ffbf00;
+  --error: #ff4040 ;
+  --fatal: #aa00e5;
+  --unknown: #660066;
 }
 
 .exception {
@@ -61,6 +68,11 @@
   overflow-y: auto;
 }
 
+.divider {
+  border: 1px solid var(--soft-grey);
+  height: 50px;
+}
+
 .fileList {
   display: flex;
   justify-content: center;
@@ -71,9 +83,57 @@
   transition: all ease .2s;
 }
 
-.fileList:hover {
-  border: 1px solid var(--red);
-  background-color: var(--red);
+.fileList.debug:hover input,
+.fileList.info:hover input,
+.fileList.error:hover input,
+.fileList.fatal:hover input,
+.fileList.unknown:hover input {
+  color: var(--white) !important;
+}
+
+.fileList.debug:hover {
+  border: 1px solid var(--debug);
+  background-color: var(--debug);
+}
+
+.fileList.info:hover {
+  border: 1px solid var(--info);
+  background-color: var(--info);
+}
+.fileList.warn:hover {
+  border: 1px solid var(--warn);
+  background-color: var(--warn);
+}
+.fileList.error:hover {
+  border: 1px solid var(--error);
+  background-color: var(--error);
+}
+.fileList.fatal:hover {
+  border: 1px solid var(--fatal);
+  background-color: var(--fatal);
+}
+.fileList.unknown:hover {
+  border: 1px solid var(--unknown);
+  background-color: var(--unknown);
+}
+
+.fileList.debug::before {
+  content: "\f05a";
+}
+.fileList.info::before {
+  content: "\f059";
+}
+.fileList.warn::before {
+  content: "\f06a";
+}
+.fileList.error:before {
+  content: "\f04d";
+}
+.fileList.fatal::before {
+  content: "\f056";
+}
+.fileList.unknown::before {
+  content: "\f057";
 }
 
 .fileList input {
@@ -85,15 +145,23 @@
   transition: all ease .2s;
 }
 
-.fileList:hover input {
-  color: var(--white) !important;
+.fileList::before {
+  position: relative;
+  font-family: FontAwesome;
+  color:white;
+  opacity: 0;
+  transition: all ease .2s;
+}
+
+.fileList:hover::before {
+  opacity: 1;
+  margin: 5px;
 }
 
 .fileList::after {
   position: relative;
   font-family: FontAwesome;
   content: "\f00d";
-  margin: 0px;
   color:white;
   opacity: 0;
   transition: all ease .2s;
@@ -118,6 +186,23 @@
   border-radius: 5px;
 }
 
+#logLevel {
+  display: flex;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font-size: 14px;
+  min-width: 90px;
+  border: none;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+}
+
+#logLevel i {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+}
+
 #searchFile:focus {outline: 2px solid var(--grey);}
 
 .dropdown {
@@ -139,6 +224,8 @@
   box-shadow: 0px 5px 10px 2px rgba(0,0,0,0.3);
 }
 
+.dropdown-content.log-level { min-width: 100px; }
+
 .dropdown-content input {
   color: var(--text);
   padding: 12px 16px;
@@ -159,3 +246,4 @@
 }
 
 .show {display:block;}
+.rotate i { transform: rotate(90deg); }
