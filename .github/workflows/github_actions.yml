@@ -26,9 +26,6 @@ jobs:
       - name: Run tests
         run: |
           bundle exec rspec
-      - name: Adds coverage
-        run: |
-          cat coverage/.last_run.json
 
 
 
