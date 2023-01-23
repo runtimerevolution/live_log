@@ -54,7 +54,7 @@ const htmlMessage = ({message, type}) => {
   return `<span>${message}</span>`
 }
 
-consumer.subscriptions.create("LiveLog::LiveLogChannel", {
+const channel = consumer.subscriptions.create("LiveLog::LiveLogChannel", {
   async connected() {
     const data = await (await fetch(url)).json()
     liveLogDiv.innerHTML = ''
@@ -70,4 +70,10 @@ consumer.subscriptions.create("LiveLog::LiveLogChannel", {
     const [data] = receivedData;
     liveLogDiv.insertAdjacentHTML("afterbegin", htmlData(data))
   }
+});
+
+// Window Events
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  channel.unsubscribe();
 });
