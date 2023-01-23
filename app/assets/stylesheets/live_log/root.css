@@ -1,0 +1,21 @@
+/* ROOT COLORS */
+
+:root {
+  --blue: #54b4d3;
+  --red: #dc4c64;
+  --white: #ffffff;
+  --black: #000000;
+  --hard-grey: #cccccc;
+  --grey: #dddddd;
+  --soft-grey: #f5f5f5;
+  --text: #777777;
+  --exception: #d0010012;
+  --box-shadow: rgba(0,0,0,0.3);
+  /* Log Levels */
+  --debug: #737373;
+  --info: #7F7FFF;
+  --warn: #ffbf00;
+  --error: #ff4040 ;
+  --fatal: #aa00e5;
+  --unknown: #660066;
+}

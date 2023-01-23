@@ -1,0 +1,31 @@
+/* FILTERS STYLESHEET */
+
+#searchFile {
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 5px 10px;
+  border: none;
+  border-bottom: 1px solid var(--grey);
+  border-radius: 5px;
+}
+
+#searchFile:focus {
+  outline: 2px solid var(--grey);
+}
+
+#logLevel {
+  display: flex;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font-size: 14px;
+  min-width: 90px;
+  border: none;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+}
+
+#logLevel i {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+}

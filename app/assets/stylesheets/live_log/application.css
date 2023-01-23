@@ -10,6 +10,9 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+ *= require live_log/root.css
+ *= require live_log/file-list.css
+ *= require live_log/logger.css
+ *= require live_log/filters.css
+ *= require live_log/dropdown.css
  */
