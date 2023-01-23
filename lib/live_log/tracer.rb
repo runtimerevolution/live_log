@@ -30,10 +30,14 @@ module LiveLog
     %i[debug info warn error fatal unknown].each do |lvl|
       define_method lvl do |*args, &block|
         if logger
-          if LiveLog::Tracer.is_active
-            file = get_match_caller caller.first
-            if file && LiveLog::Tracer.files.map { |f| f[:path].include? file[:path] }.include?(true)
-              Logger.send(check_level(lvl), "#{file} #{args.first}", level)
+          if self.class.is_active
+            caller_file = get_match_caller caller.first
+            if caller_file &&
+               self.class.files.map do |f|
+                 f[:log_level] == self.class::LEVELS[lvl.to_sym] &&
+                 caller_file[:path].include?(f[:path])
+               end.include?(true)
+              LiveLog::Logger.send(check_level(lvl), "#{caller_file[:path]}: #{args.first}")
             end
           end
 
