@@ -1,6 +1,8 @@
 # LiveLog
 LiveLog provides an user interface to show logs in realtime for production.
 
+![Gem Version](https://raw.githubusercontent.com/runtimerevolution/live_log/main/.github/banners/gem_version.svg) ![Coverage](https://raw.githubusercontent.com/runtimerevolution/live_log/main/.github/banners/coverage.svg)
+
 ## Installation
 Add this line to your application's Gemfile:
 
