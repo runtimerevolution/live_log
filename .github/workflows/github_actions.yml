@@ -30,13 +30,15 @@ jobs:
         shell: bash
         run: |
           ruby -e "require File.expand_path('../lib/live_log/version', __FILE__); p LiveLog::VERSION" | xargs -I curr sh -c "sed s/%{version}/curr/g .github/workflows/banners/gem_version.svg  > .github/banners/gem_version.svg"
+          cat .github/banners/gem_version.svg
           ruby -e "require 'json'; p JSON.parse(File.read('./coverage/.last_run.json'))['result']['line']" | xargs -I curr sh -c "sed s/%{coverage}/curr/g .github/workflows/banners/coverage.svg > .github/banners/coverage.svg"
+          cat .github/banners/coverage.svg
       - name: Upload svgs
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
           path: .github/banners/*.svg
-          retention-days: 365
+          retention-days: 90  
 
 
 
