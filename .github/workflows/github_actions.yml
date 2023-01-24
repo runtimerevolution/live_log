@@ -1,15 +1,6 @@
-name: RSpec Coverage and Update Banners
+name: RSpec Coverage
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-    types: 
-      - ready_for_review
-      - review_requested
+on: [push]
 
 jobs:
   test:
@@ -24,9 +15,8 @@ jobs:
       RAILS_ENV: test
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
+        uses: actions/checkout@v2
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -36,20 +26,7 @@ jobs:
       - name: Run tests
         run: |
           bundle exec rspec
-      - name: Update banners
-        shell: bash
-        run: |
-          ruby -e "require File.expand_path('../lib/live_log/version', __FILE__); p LiveLog::VERSION" | xargs -I curr sh -c "sed s/%{version}/curr/g .github/workflows/banners/gem_version.svg  > .github/banners/gem_version.svg"
-          ruby -e "require 'json'; p JSON.parse(File.read('./coverage/.last_run.json'))['result']['line']" | xargs -I curr sh -c "sed s/%{coverage}/curr/g .github/workflows/banners/coverage.svg > .github/banners/coverage.svg"
-      - name: Commit files
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git commit -a -m "Add changes"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          force_with_lease: true
+
 
 
 
