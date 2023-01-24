@@ -28,8 +28,8 @@ jobs:
           bundle exec rspec
       - name: Update banners
         run: |
-          ruby -e "require File.expand_path('../lib/live_log/version', __FILE__); p LiveLog::VERSION" | xargs -I curr sh -c "sed s/%{version}/curr/g .github/workflows/banners/gem_version.svg  >> .github/banners/gem_version.svg"
-          ruby -e "require 'json'; p JSON.parse(File.read('./coverage/.last_run.json'))['result']['line']" | xargs -I curr sh -c "sed s/%{coverage}/curr/g .github/workflows/banners/coverage.svg >> .github/banners/coverage.svg"
+          ruby -e "require File.expand_path('../lib/live_log/version', __FILE__); p LiveLog::VERSION" | xargs -I curr sh -c "sed s/%{version}/curr/g .github/workflows/banners/gem_version.svg  > .github/banners/gem_version.svg"
+          ruby -e "require 'json'; p JSON.parse(File.read('./coverage/.last_run.json'))['result']['line']" | xargs -I curr sh -c "sed s/%{coverage}/curr/g .github/workflows/banners/coverage.svg > .github/banners/coverage.svg"
 
 
 
