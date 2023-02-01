@@ -1,0 +1,114 @@
+
+/* FILE LIST STYLESHEETS */
+
+.fileList-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 5px;
+  height: 75px;
+  overflow-y: auto;
+}
+
+.fileList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--blue);
+  background-color: var(--white);
+  border-radius: 5px;
+  transition: all ease .2s;
+}
+
+.fileList input {
+  padding: 5px;
+  border: 0;
+  cursor: pointer;
+  color: var(--text);
+  background-color: transparent;
+  transition: all ease .2s;
+}
+
+.fileList::before {
+  position: relative;
+  font-family: FontAwesome;
+  color: var(--white);
+  opacity: 0;
+  transition: all ease .2s;
+}
+
+.fileList:hover::before {
+  opacity: 1;
+  margin: 5px;
+}
+
+.fileList::after {
+  position: relative;
+  font-family: FontAwesome;
+  content: "\f00d";
+  color: var(--white);
+  opacity: 0;
+  transition: all ease .2s;
+}
+
+.fileList:hover::after {
+  opacity: 1;
+  margin: 5px;
+}
+
+/* STATUS FOR FILE LIST */
+
+.fileList.debug:hover input,
+.fileList.info:hover input,
+.fileList.error:hover input,
+.fileList.fatal:hover input,
+.fileList.unknown:hover input {
+  color: var(--white) !important;
+}
+
+.fileList.debug:hover {
+  border: 1px solid var(--debug);
+  background-color: var(--debug);
+}
+
+.fileList.info:hover {
+  border: 1px solid var(--info);
+  background-color: var(--info);
+}
+.fileList.warn:hover {
+  border: 1px solid var(--warn);
+  background-color: var(--warn);
+}
+.fileList.error:hover {
+  border: 1px solid var(--error);
+  background-color: var(--error);
+}
+.fileList.fatal:hover {
+  border: 1px solid var(--fatal);
+  background-color: var(--fatal);
+}
+.fileList.unknown:hover {
+  border: 1px solid var(--unknown);
+  background-color: var(--unknown);
+}
+
+.fileList.debug::before {
+  content: "\f05a";
+}
+.fileList.info::before {
+  content: "\f059";
+}
+.fileList.warn::before {
+  content: "\f06a";
+}
+.fileList.error:before {
+  content: "\f04d";
+}
+.fileList.fatal::before {
+  content: "\f056";
+}
+.fileList.unknown::before {
+  content: "\f057";
+}

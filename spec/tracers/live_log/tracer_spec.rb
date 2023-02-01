@@ -2,16 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Tracer' do
+RSpec.describe LiveLog::Tracer do
   before(:all) do
     LiveLog::Tracer.is_active = true
-    LiveLog::Tracer.files = ['log_subscriber']
   end
 
   shared_examples 'sends a console' do |type|
     let(:tracer) { Rails.logger }
 
     it "#{type} log" do
+      LiveLog::Tracer.files = [{ path: 'log_subscriber', log_level: described_class::LEVELS[type.to_sym] }]
       expect(tracer).to receive(type.to_sym).with(type).at_least(:once)
       # Tracer doesn't output to log file
       tracer.send(type.to_sym, type)

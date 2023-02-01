@@ -17,13 +17,25 @@
             <input type="text" placeholder="Search.." id="searchFile">
             <div id="fileOptions" class="dropdown-content" tabindex="0">
               <% @files_list.each do |file| %>
-                <%= button_to file, { action: 'tracer_files', file: file, method: :post } %>
+                <%= button_to file[:path], { action: 'tracer_files', path: file[:path], log_level: file[:log_level], method: :post } %>
               <% end %>
             </div>
           </div>
+          <div class="dropdown log-level">
+            <div tabindex="1" id="logLevel">
+              <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+              <span><%= @log_level.capitalize %></span>
+            </div>
+            <div id="logLevelOptions" class="dropdown-content log-level" tabindex="2">
+              <% LiveLog::Tracer::LEVELS.each do |name, level| %>
+                <%= button_to name.to_s.capitalize, { action: 'tracer_log_level', log_level: level, method: :post } %>
+              <% end %>
+            </div>
+          </div>
+          <div class="divider"></div>
           <div class="fileList-container">
             <% @tracer_files.each_with_index do |f, i| %>
-              <%= button_to f, { action: 'remove_file', id: i, method: :post }, form_class: "fileList" %>
+              <%= button_to f[:path], { action: 'remove_file', id: i, method: :post }, form_class: "fileList #{LiveLog::Tracer::LEVELS.key(f[:log_level].to_i)}" %>
             <% end %>
           </div>
         <% end %>

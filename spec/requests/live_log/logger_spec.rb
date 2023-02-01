@@ -96,16 +96,18 @@ RSpec.describe 'Loggers', type: :request do
 
   describe 'POST /tracer_files' do
     path = '/some/path/to/file.rb'
+    log_level = 0
 
     before(:each) do
       LiveLog::Tracer.is_active = true
       LiveLog::Tracer.files = []
+      LiveLog::Tracer.log_level = 0
     end
 
     it 'adds tracer file' do
-      auth_post '/live_log/tracer_files', params: { file: path }
+      auth_post '/live_log/tracer_files', params: { path: path, log_level: log_level }
 
-      expect(LiveLog::Tracer.files).to eq([path])
+      expect(LiveLog::Tracer.files).to eq([{ path: path, log_level: log_level }])
     end
 
     it 'not adds tracer file inactive' do
@@ -123,11 +125,14 @@ RSpec.describe 'Loggers', type: :request do
   end
 
   describe 'POST /remove_file' do
-    path = '/some/path/to/file.rb'
+    file = {
+      path: '/some/file/to/file.rb',
+      log_level: 0
+    }
 
     before(:each) do
       LiveLog::Tracer.is_active = true
-      LiveLog::Tracer.files = [path]
+      LiveLog::Tracer.files = [file]
     end
 
     it 'removes tracer file' do
@@ -141,22 +146,43 @@ RSpec.describe 'Loggers', type: :request do
       LiveLog::Tracer.is_active = false
       auth_post '/live_log/remove_file', params: { id: 0 }
 
-      expect(LiveLog::Tracer.files).to eq([path])
+      expect(LiveLog::Tracer.files).to eq([file])
       expect(response.body).to eq('')
     end
 
     it 'not removes tracer file with other param' do
       auth_post '/live_log/remove_file', params: { random_key: 0 }
 
-      expect(LiveLog::Tracer.files).to eq([path])
+      expect(LiveLog::Tracer.files).to eq([file])
       expect(response.body).to eq('')
     end
 
     it 'not adds tracer file with non index' do
       auth_post '/live_log/remove_file', params: { id: 3 }
 
-      expect(LiveLog::Tracer.files).to eq([path])
+      expect(LiveLog::Tracer.files).to eq([file])
       expect(response.body).to include('redirected')
+    end
+  end
+
+  describe 'POST /tracer_log_level' do
+    it 'tracer is not active' do
+      LiveLog::Tracer.is_active = false
+      auth_post '/live_log/tracer_log_level'
+      expect(response.status).to eq(204)
+    end
+
+    it 'log level is not set' do
+      LiveLog::Tracer.is_active = true
+      auth_post '/live_log/tracer_log_level', params: { log_level: nil }
+      expect(response.status).to eq(204)
+    end
+
+    it 'tracer and log level are set' do
+      LiveLog::Tracer.is_active = true
+      auth_post '/live_log/tracer_log_level', params: { log_level: LiveLog::Tracer::LEVELS[:error] }
+      expect(LiveLog::Tracer.log_level).to eq(LiveLog::Tracer::LEVELS[:error])
+      expect(response.status).to eq(302)
     end
   end
 end
